@@ -39,7 +39,6 @@ public class AsyncFileCompletionHandler implements CompletionHandler<Integer, By
         this.bytesRead = result;
         if (this.bytesRead < 0) {
             this.finished.run();
-            this.fileChannel.close();
             return;
         }
         buffer.flip();
@@ -54,5 +53,10 @@ public class AsyncFileCompletionHandler implements CompletionHandler<Integer, By
     @Override
     public void failed(Throwable exc, ByteBuffer attachment) {
         log.error("Error --> ",exc);
+    }
+
+    @SneakyThrows
+    public void close(){
+        this.fileChannel.close();
     }
 }

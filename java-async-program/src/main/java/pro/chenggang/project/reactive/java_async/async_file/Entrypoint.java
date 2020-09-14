@@ -27,6 +27,11 @@ public class Entrypoint {
                 });
         AsyncFileReader asyncFileReader = new AsyncFileReader(asyncFileCompletionHandler);
         asyncFileReader.read(new File(fileName));
+        /*
+         * 这里关闭异步文件读取
+         * 必须等到文件读取结束后才能进行
+         * 这里不可以只关闭FileChannel，还要关闭ExecutorService ,否则异步线程池会一直阻塞WAITING状态
+         */
         while (true){
             if(isFinished.get()){
                 asyncFileReader.finished();

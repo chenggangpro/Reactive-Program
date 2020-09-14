@@ -33,6 +33,7 @@ public class AsyncFileReader {
     }
 
     public void finished(){
+        this.asyncFileCompletionHandler.close();
         this.executorService.shutdown();
     }
 }
