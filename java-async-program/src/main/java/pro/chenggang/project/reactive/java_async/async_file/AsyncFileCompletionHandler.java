@@ -47,7 +47,7 @@ public class AsyncFileCompletionHandler implements CompletionHandler<Integer, By
         consumer.accept(Bytes.from(data, data.length));
         buffer.clear();
         this.position = this.position + this.bytesRead;
-        this.read();
+        this.fileChannel.read(buffer, this.getPosition(), buffer, this);
     }
 
     @Override
